@@ -249,7 +249,7 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-router.get("/admin", checkAuthenicated, (req, res) => {
+router.get("/admin", (req, res) => {
   res.render("admindashboard");
 });
 
