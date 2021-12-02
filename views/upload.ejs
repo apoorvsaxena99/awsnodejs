@@ -1,0 +1,108 @@
+
+  <div>
+    <h1 style="text-align:center;">  Upload Your Files Here</h1>
+    <a href="/dashboard" class="btn btn-success btn-lg"   > Go To Dashboard </a>
+    
+    <form method="post" enctype="multipart/form-data" action="/uploaddata" >
+    
+      <label for="exampleSelect1" class="form-label mt-4">Chose Bucket</label>
+      <div class="form-group">
+      <select class="form-control" id="exampleSelect1" onchange="selectChange(this)" name="bucket"> 
+    
+            <% buckets.forEach(user => { %>
+              <option class="form-control" value=<%= user.Name %> selected="selected"><%= user.Name %></option>
+          <% });%>
+            </select>
+          </div>
+          <label for="exampleSelect1" class="form-label mt-4">Chose Folder</label>
+      <select class="form-control" id="folder" onchange="selectChange(this)" name="folder"> 
+ 
+            </select>
+          
+
+        <div class="droparea">
+          <label for="formFile" class="form-label mt-4">Drag and Drop Your Files Here</label>
+        </div>
+        <div class="form-group">
+          <label for="formFile" class="form-label mt-4">Select Your Files</label>
+          <input class="form-control" type="file" id="formFile" name="img" multiple>
+        </div>
+        <input class="btn btn-primary btn-block" type="submit"  >
+       
+      </form>
+  </div>
+  <script>
+    
+    function selectChange(e){
+      // console.log(e.value)
+
+      var xmlhttp = new XMLHttpRequest();
+      // document.getElementById("folder").innerHTML = ''
+xmlhttp.onreadystatechange = function() {
+
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+      // console.log("test2",xmlhttp.status);
+       if (xmlhttp.status == 200) {
+        //  console.log("test",xmlhttp.responseText);
+
+         let result = JSON.parse(xmlhttp.responseText)
+         let result1 = [];
+         for(let i=0;i<result.length;i++)
+         result1.push(result[i]);
+        let select = document.getElementById("folder")
+         result1.forEach(name =>{
+           
+          let opt = document.createElement('option');
+          opt.value = name;
+          opt.innerHTML = name;
+          folder.appendChild(opt);
+           
+         })
+          //  document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+       }
+       else if (xmlhttp.status == 400) {
+          alert('There was an error 400');
+       }
+       else {
+           alert('something else other than 200 was returned');
+       }
+    }
+};
+
+xmlhttp.open("GET", `test2/${e.value}`, true);
+xmlhttp.send();
+
+    }
+
+    const droparea = document.querySelector(".droparea");
+
+droparea.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  droparea.classList.add("hover");
+});
+
+droparea.addEventListener("dragleave", () => {
+  droparea.classList.remove("hover");
+});
+
+droparea.addEventListener("drop", (e) => {
+  e.preventDefault();
+  
+  const image = e.dataTransfer.files[0];
+  // console.log("yest",image.type);
+  const type = image.type;
+
+  if (type == "image/png" ||type == "image/jpg" ||type == "image/jpeg" || type == "image/gif" || type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || type == "application/pdf") {
+    return upload(image);
+  } else {
+    droparea.setAttribute("class", "droparea invalid");
+    droparea.innerText = "Invalid File Format!";
+    return false;
+  }
+});
+
+const upload = (image) => {
+  droparea.setAttribute("class", "droparea valid");
+  droparea.innerText = "Added " + image.name;
+};
+  </script>

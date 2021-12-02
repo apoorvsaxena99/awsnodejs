@@ -1,0 +1,19 @@
+<%- include ('partials/menu') %>
+<h1 class="text-center">Show All Files</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">File Name</th>
+        <th scope="col">Download</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <% users.forEach(user => { %>
+      <tr class="table-active">
+      <th scope="row"><%=user.name%></th>          
+        <th scope="row"><a href=<%= user.url %> class="btn bn-primary" target="_blank">Download</th>
+      </tr>
+      <% });%>
+    </tbody>
+  </table>

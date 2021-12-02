@@ -1,0 +1,25 @@
+<%- include ('partials/menu') %>
+
+<h1 class="mt-4">Dashboard</h1>
+<a href="/logout" class="btn btn-danger">Logout</a>
+<p class="lead mb-3">Welcome Admin</p>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            
+            <div class="card-body">
+                <a style="text-decoration: none;color:white" href="/adduser"><h4 class="card-title">Add User</h4></a>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card text-white bg-info mb-3" style="max-width: 20rem;">  
+            <div class="card-body">
+             <a style="text-decoration: none;color:white" href="/showalluser"><h4 class="card-title">Show All User</h4></a>
+            </div>
+          </div>
+    </div>
+
+</div>
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

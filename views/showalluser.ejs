@@ -1,0 +1,22 @@
+
+
+  <%- include ('partials/menu') %>
+<h1 class="text-center">Show All Files</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">User Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Show Uploaded file</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% users.forEach(user => { %>
+      <tr class="table-active">
+      <th scope="row"><%=user.name%></th>          
+      <th scope="row"><%=user.email%></th>
+      <th scope="row"><a href=/user/<%= user.id %>>Show All Files</a>
+    </tr>
+      <% });%>
+    </tbody>
+  </table>
